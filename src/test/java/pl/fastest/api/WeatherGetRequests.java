@@ -1,3 +1,5 @@
+package pl.fastest.api;
+
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import org.testng.Assert;

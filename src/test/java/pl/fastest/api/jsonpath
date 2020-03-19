@@ -1,0 +1,8 @@
+$...id              All ids
+$..[0].id           First id
+$..[0,1].title      Title of first and second book
+$..[1:].title       all book's titles from second
+$..[:3]             all book to 4
+$..[?(@.isbn)]      all books with isbn not null
+$..[?(@.year="2008")] all books with year 2008
+$..[?(@.year>"2008")] all books with year later then 2008
