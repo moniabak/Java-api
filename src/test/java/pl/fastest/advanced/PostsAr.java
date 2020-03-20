@@ -1,11 +1,9 @@
-package pl.fastest.classes;
+package pl.fastest.advanced;
 
-import org.hamcrest.Condition;
-
-public class _Posts {
+public class PostsAr {
     private String id;
     private String title;
-    private Info info;
+    private InfoAr[] infoAr;
 
     public String getId() {
         return id;
@@ -23,11 +21,11 @@ public class _Posts {
         this.title = title;
     }
 
-    public Info getInfo(){
-        return info;
+    public InfoAr[] getInfoAr() {
+        return infoAr;
     }
 
-    public void setInfo(Info info){
-        this.info = info;
+    public void setInfoAr(InfoAr[] infoAr) {
+        this.infoAr = infoAr;
     }
 }

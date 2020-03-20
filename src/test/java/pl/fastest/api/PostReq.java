@@ -4,7 +4,11 @@ import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pl.fastest.advanced.InfoAr;
+import pl.fastest.advanced.PostsAr;
+import pl.fastest.classes.Info;
 import pl.fastest.classes.Posts;
+import pl.fastest.classes._Posts;
 
 import static com.jayway.restassured.RestAssured.given;
 
@@ -65,6 +69,7 @@ public class PostReq {
 
         Assert.assertEquals(response.statusCode(), 200);
     }
+
     @Test
     public void patchTest() {
         Response response = given().
@@ -88,5 +93,53 @@ public class PostReq {
         System.out.println("code : " + response.asString());
 
         Assert.assertEquals(response.statusCode(), 200);
+    }
+
+    @Test
+    public void complexPostTest() {
+        Info info = new Info();
+        info.setEmail("emsg@fdsf.pl");
+        info.setPhone("987987987");
+
+        _Posts posts = new _Posts();
+        posts.setId("10");
+        posts.setTitle("Title bibile");
+        posts.setInfo(info);
+
+        Response response = given().
+                when().
+                contentType(ContentType.JSON).
+                body(posts).
+                post("https://my-json-server.typicode.com/moniabak/json-server/posts");
+
+        System.out.println("code : " + response.asString());
+
+        Assert.assertEquals(response.statusCode(), 201);
+    }
+
+    @Test
+    public void arrayPostTest() {
+        InfoAr info = new InfoAr();
+        info.setEmail("emsg@fdsf.pl");
+        info.setPhone("987987987");
+
+        InfoAr info2 = new InfoAr();
+        info2.setEmail("nan@fdsf.pl");
+        info2.setPhone("111111");
+
+        PostsAr posts = new PostsAr();
+        posts.setId("223");
+        posts.setTitle("Title bibile");
+        posts.setInfoAr(new InfoAr[]{info, info2});
+
+        Response response = given().log().body().
+                when().
+                contentType(ContentType.JSON).
+                body(posts).
+                post("https://my-json-server.typicode.com/moniabak/json-server/posts");
+
+        System.out.println("code : " + response.asString());
+
+        Assert.assertEquals(response.statusCode(), 201);
     }
 }

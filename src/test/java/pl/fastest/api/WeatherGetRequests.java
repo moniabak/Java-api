@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static com.jayway.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.lessThan;
 
 public class WeatherGetRequests {
 
@@ -52,7 +53,7 @@ public class WeatherGetRequests {
                 when().
                 get("https://samples.openweathermap.org/data/2.5/weather").
                 then().
-                assertThat().statusCode(200);
+                assertThat().statusCode(200).log().all();
     }
 
     @Test
@@ -145,5 +146,16 @@ public class WeatherGetRequests {
                 path("coord.lon"));
 
         System.out.println("longitude is " + lon);
+    }
+
+    @Test
+    public void Test_10() {
+        given().
+                param("q", "London").
+                param("appid", "b6907d289e10d714a6e88b30761fae22").
+                when().
+                get("https://samples.openweathermap.org/data/2.5/weather").
+                then().
+                time(lessThan(2000L));
     }
 }
